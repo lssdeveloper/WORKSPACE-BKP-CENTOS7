@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+	<f:facet name="first">
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</f:facet>
+
+	<title>Acanga Soluções</title>
+
+	<h:outputStylesheet library="css" name="custom.css" />
+	<h:outputStylesheet library="css" name="layout.css" />
+	<h:outputStylesheet library="css" name="components.css" />
+
+	<h:outputScript target="body" library="primefaces"
+		name="jquery/jquery.js" />
+	<h:outputScript target="body" library="javascripts" name="app.js" />
+
+	<script type="text/javascript">
+		PrimeFaces.locales['pt'] = {
+			closeText : 'Fechar',
+			prevText : 'Anterior',
+			nextText : 'Próximo',
+			currentText : 'Começo',
+			monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+					'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',
+					'Novembro', 'Dezembro' ],
+			monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+					'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+			dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+					'Sexta', 'Sábado' ],
+			dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+			dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+			weekHeader : 'Semana',
+			firstDay : 0,
+			isRTL : false,
+			showMonthAfterYear : false,
+			yearSuffix : '',
+			timeOnlyTitle : 'Só Horas',
+			timeText : 'Tempo',
+			hourText : 'Hora',
+			minuteText : 'Minuto',
+			secondText : 'Segundo',
+			ampm : false,
+			month : 'Mês',
+			week : 'Semana',
+			day : 'Dia',
+			allDayText : 'Todo o Dia'
+		};
+	</script>
+
+</h:head>
+
+<h:body>
+
+	<p:ajaxStatus styleClass="ajax-status">
+		<f:facet name="start">
+			<h:graphicImage library="imagens" name="carregando.gif" />
+		</f:facet>
+		<f:facet name="complete">
+			<h:outputText value="" />
+		</f:facet>
+	</p:ajaxStatus>
+
+	<header class="aw-topbar">
+
+		<h:graphicImage library="imagens" name="logo.png" />
+
+		<a href="#" class="aw-toggle  js-toggle"><i class="fa  fa-bars"></i></a>
+	</header>
+
+	<aside class="aw-sidebar  js-sidebar">
+		<h:form>
+			<p:growl autoUpdate="true" />
+
+			<p:panelMenu style="width:300px">
+				<p:submenu label="Painel">
+					<p:menuitem value="Candidatos" actionListener="#{menuView.save}"
+						icon="ui-icon-disk" />
+					<p:menuitem value="Seleção" actionListener="#{menuView.update}"
+						icon="ui-icon-arrowrefresh-1-w" />
+					<p:menuitem value="Vagas" actionListener="#{menuView.update}"
+						icon="ui-icon-arrowrefresh-1-w" />						
+				</p:submenu>
+				<p:submenu label="Cadastros">
+					<p:menuitem value="Colaboradores" actionListener="#{menuView.delete}"
+						ajax="false" icon="ui-icon-close" />
+					<p:menuitem value="Empresas" actionListener="#{menuView.delete}"
+						ajax="false" icon="ui-icon-close" />	
+					<p:menuitem value="Vagas" actionListener="#{menuView.delete}"
+						ajax="false" icon="ui-icon-close" />
+					<p:menuitem value="Entrevistas" actionListener="#{menuView.delete}"
+						ajax="false" icon="ui-icon-close" />																	
+				</p:submenu>
+				<p:separator />
+				<p:submenu label="Relatórios">
+					<p:submenu label="Estágios" icon="ui-icon-extlink">
+						<p:submenu label="Nível Técnico" icon="ui-icon-heart">
+							<p:menuitem value="Mecânica" url="http://www.primefaces.org"
+								icon="ui-icon-home" />
+							<p:menuitem value="Eletrotécnica"
+								url="http://www.primefaces.org/documentation"
+								icon="ui-icon-document" />
+							<p:menuitem value="Edificações"
+								url="http://www.primefaces.org/downloads"
+								icon="ui-icon-arrowthick-1-s" />
+							<p:menuitem value="Informática"
+								url="http://www.primefaces.org/support" icon="ui-icon-wrench" />
+						</p:submenu>
+						<p:submenu label="Nível Superior" icon="ui-icon-heart">
+							<p:menuitem value="Direito" url="http://www.primefaces.org"
+								icon="ui-icon-home" />
+							<p:menuitem value="Marketing"
+								url="http://www.primefaces.org/documentation"
+								icon="ui-icon-document" />
+							<p:menuitem value="Telecomunicações"
+								url="http://www.primefaces.org/downloads"
+								icon="ui-icon-arrowthick-1-s" />
+							<p:menuitem value="Tecnologia da Informação"
+								url="http://www.primefaces.org/support" icon="ui-icon-wrench" />
+						</p:submenu>						
+					</p:submenu>
+					
+					<p:menuitem value="Suporte" 
+						icon="ui-icon-signal" />
+					<p:menuitem value="Configurações" 
+						icon="ui-icon-signal" />						
+				</p:submenu>
+			</p:panelMenu>
+		</h:form>
+
+
+	</aside>
+
+	<section class="aw-content  js-content">
+		<ui:insert name="conteudo" />
+	</section>
+
+</h:body>
+
+</html>

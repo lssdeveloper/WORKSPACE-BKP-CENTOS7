@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"	
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Perfil de Liderança</title>
+	<style type="text/css">
+.ui-widget {
+	font-size: 120%;
+}
+</style>
+</h:head>
+
+<h:body>
+	<h:form id="pergunta2form">
+		<p:separator />
+		<p class="ui-widget">Para quem costuma repassar as atividades?</p>
+		<p:separator />
+		<p:selectOneRadio id="opcao" value="#{plPergunta3Bean.opcao}"
+			layout="responsive" columns="1">
+			<f:selectItems value="#{plPergunta3Bean.opcoes}" var="o"
+				itemLabel="#{opcao}" itemValue="#{opcao}" />
+		</p:selectOneRadio>
+
+
+		<p:commandButton id="pergunta2btn" value="Próxima pergunta >>"
+			icon="ui-icon-extlink"
+			actionListener="#{plPergunta3Bean.abrePergunta3}">
+			<p:ajax event="dialogReturn"
+				listener="#{plPergunta3Bean.aoRetornoDaPergunta3}" />
+		</p:commandButton>
+	</h:form>
+</h:body>
+
+</html>

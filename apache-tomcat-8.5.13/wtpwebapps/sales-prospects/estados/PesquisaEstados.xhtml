@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/layout.xhtml">
+
+    <ui:define name="titulo">
+        Pesquisa de estados
+    </ui:define>
+
+
+    <ui:define name="conteudo">
+        <div style="margin-top: 90px">
+            <h1>Estados</h1>
+        </div>
+
+        <h:form id="frm" style="margin-top: 20px">
+
+            <p:messages autoUpdate="true" closable="true"/>
+
+            <p:toolbar style="margin-top: 20px; margin-bottom: 20px">
+                <p:toolbarGroup>
+                    <p:commandButton value="Aplicar" action="#{pesquisaEstadosBean.pesquisar}" update="tb-estados"/>
+                </p:toolbarGroup>
+
+                <p:toolbarGroup align="right">
+                    <p:button value="Novo" outcome="/estados/CadastroEstado"/>
+                </p:toolbarGroup>
+
+            </p:toolbar>
+
+            <p:dataTable id="tb-estados" style="margin-top: 20px" rows="10" paginatorPosition="bootom"
+                         paginatorAlwaysVisible="false"
+                         reflow="true" paginator="true" emptyMessage="Sem registros."
+                         value="#{pesquisaEstadosBean.estadosFiltrados}"
+                         var="estado">
+
+
+                <p:column headerText="Estado" styleClass="elemento-centralizado">
+                    <h:outputLabel value="#{estado.descricao}"/>
+                </p:column>
+
+                <p:column styleClass="elemento-centralizado elemento-botoes">
+                    <p:button icon="fa fa-pencil" title="Editar" outcome="/estados/CadastroEstado">
+                        <f:param name="estado" value="#{estado.id}"/>
+                    </p:button>
+
+                    <p:commandButton icon="fa fa-trash" title="Excluir"
+                                     oncomplete="PF('confirm-remover-estado').show();"
+                                     process="@this"
+                                     update="frm:remover-estado-dialog">
+
+                        <f:setPropertyActionListener value="#{estado}"
+                                                     target="#{pesquisaEstadosBean.estadoSelecionado}"/>
+
+                    </p:commandButton>
+                </p:column>
+
+            </p:dataTable>
+
+            <p:confirmDialog widgetVar="confirm-remover-estado" header="Exclusão de estado"
+                             id="remover-estado-dialog" responsive="true"
+                             message="Deseja realmente remover o estado #{pesquisaEstadosBean.estadoSelecionado.descricao} ?">
+
+                <p:commandButton value="Sim" action="#{pesquisaEstadosBean.remover}"
+                                 update="@form"
+                                 process="@this"
+                                 oncomplete="if (!args.validationFailed) {PF('confirm-remover-estado').hide();}"/>
+
+                <p:button value="Não" onclick="PF('confirm-remover-estado').hide(); return false;"/>
+
+            </p:confirmDialog>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>
